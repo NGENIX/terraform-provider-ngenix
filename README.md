@@ -6,7 +6,6 @@ This provider supports only these Ngenix platform objects for now:
 
 1. [DNS](https://docs.ngenix.net/dns) zones with record sets.
 2. [Traffic pattern](https://docs.ngenix.net/upravlenie-pravilami-obrabotki-zaprosov/kak-sozdat-spisok-znachenii).
-3. [Rulesets](https://docs.ngenix.net/upravlenie-pravilami-obrabotki-zaprosov).
 
 ## Requirements
 
@@ -44,8 +43,7 @@ Then commit the changes to `go.mod` and `go.sum`.
 
 At the moment, the provider allows you to manage three objects of Ngenix platform: 
 1. DNS zones
-2. Traffic patterns 
-3. Ruleset
+2. Traffic patterxns
 
 Each object supports basic CRUD operations (create/read/update/delete) and import command also. Two Terraform entities are implemented for each object - `data source` & `resource`.
 

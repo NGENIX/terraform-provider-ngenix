@@ -204,7 +204,6 @@ func (p *ngenixProvider) DataSources(_ context.Context) []func() datasource.Data
 	return []func() datasource.DataSource{
 		DnsZoneDataSource,
 		TrafficPatternDataSource,
-		RulesetDataSource,
 	}
 }
 
@@ -213,6 +212,5 @@ func (p *ngenixProvider) Resources(_ context.Context) []func() resource.Resource
 	return []func() resource.Resource{
 		DnsZoneResource,
 		TrafficPatternResource,
-		RulesetResource,
 	}
 }
