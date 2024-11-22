@@ -4,8 +4,8 @@ This is a Terraform provider for Ngenix Planform based on a [Terraform Plugin Fr
 
 This provider supports only these Ngenix platform objects for now:
 
-1. [DNS](https://docs.ngenix.net/dns) zones with record sets.
-2. [Traffic pattern](https://docs.ngenix.net/upravlenie-pravilami-obrabotki-zaprosov/kak-sozdat-spisok-znachenii).
+1. [DNS](https://help.ngenix.net/articles/#!docs/dns) zones with record sets.
+2. [Traffic pattern](https://help.ngenix.net/articles/#!docs/managing-lists-in-rules).
 
 ## Requirements
 
