@@ -154,9 +154,9 @@ func (d *dnsZoneDataSource) Read(ctx context.Context, req datasource.ReadRequest
 			Name: types.StringValue(dnszone.Name),
 		}
 		// DNS record set.
-		recordConfigRef := &configRefModel{}
-		recordTargetGroupRef := &targetGroupRefModel{}
 		for _, record := range dnszone.Records {
+			recordConfigRef := &configRefModel{}
+			recordTargetGroupRef := &targetGroupRefModel{}
 			if record.ConfigRef != nil && record.TargetGroupRef != nil {
 				resp.Diagnostics.AddError(
 					"Bad input data format",
