@@ -223,8 +223,6 @@ func (r *dnsZoneResource) DNSRecordsModelTransformation(records []dnsRecordsItem
 }
 
 func (r *dnsZoneResource) DNSRecordsItemModelTransformation(records []restapi.Records) ([]dnsRecordsItemModel, error) {
-	recordConfigRefItem := configRefItemModel{}
-	recordTargetGroupRefItem := targetGroupRefItemModel{}
 	dnsRecordsItems := []dnsRecordsItemModel{}
 	for _, record := range records {
 		// Requirement: Records.Type is in range onf values.
@@ -242,22 +240,22 @@ func (r *dnsZoneResource) DNSRecordsItemModelTransformation(records []restapi.Re
 						Data: types.StringValue(record.Data),
 					})
 				} else if record.ConfigRef != nil {
-					recordConfigRefItem = configRefItemModel{
+					recordConfigRefItem := &configRefItemModel{
 						ID: types.Int64Value(record.ConfigRef.ID),
 					}
 					dnsRecordsItems = append(dnsRecordsItems, dnsRecordsItemModel{
 						Name:      types.StringValue(record.Name),
 						Type:      types.StringValue(record.Type),
-						ConfigRef: &recordConfigRefItem,
+						ConfigRef: recordConfigRefItem,
 					})
 				} else if record.TargetGroupRef != nil {
-					recordTargetGroupRefItem = targetGroupRefItemModel{
+					recordTargetGroupRefItem := &targetGroupRefItemModel{
 						ID: types.Int64Value(record.TargetGroupRef.ID),
 					}
 					dnsRecordsItems = append(dnsRecordsItems, dnsRecordsItemModel{
 						Name:           types.StringValue(record.Name),
 						Type:           types.StringValue(record.Type),
-						TargetGroupRef: &recordTargetGroupRefItem,
+						TargetGroupRef: recordTargetGroupRefItem,
 					})
 				} else {
 					return nil, errors.New("misunderstanding with data, config_ref and targetgroup_ref fields, you could use ONLY ONE field at a moment")
