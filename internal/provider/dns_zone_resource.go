@@ -169,8 +169,6 @@ func (r *dnsZoneResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 }
 
 func (r *dnsZoneResource) DNSRecordsModelTransformation(records []dnsRecordsItemModel) ([]restapi.Records, error) {
-	recordConfigRef := restapi.ConfigRef{}
-	recordTargetGroupRef := restapi.TargetGroupRef{}
 	dnsRecordSet := []restapi.Records{}
 	for _, record := range records {
 		// Requirement: Records.Type is in range onf values.
@@ -188,22 +186,22 @@ func (r *dnsZoneResource) DNSRecordsModelTransformation(records []dnsRecordsItem
 						Data: record.Data.ValueString(),
 					})
 				} else if record.ConfigRef != nil {
-					recordConfigRef = restapi.ConfigRef{
+					recordConfigRef := &restapi.ConfigRef{
 						ID: record.ConfigRef.ID.ValueInt64(),
 					}
 					dnsRecordSet = append(dnsRecordSet, restapi.Records{
 						Name:      record.Name.ValueString(),
 						Type:      record.Type.ValueString(),
-						ConfigRef: &recordConfigRef,
+						ConfigRef: recordConfigRef,
 					})
 				} else if record.TargetGroupRef != nil {
-					recordTargetGroupRef = restapi.TargetGroupRef{
+					recordTargetGroupRef := &restapi.TargetGroupRef{
 						ID: record.TargetGroupRef.ID.ValueInt64(),
 					}
 					dnsRecordSet = append(dnsRecordSet, restapi.Records{
 						Name:           record.Name.ValueString(),
 						Type:           record.Type.ValueString(),
-						TargetGroupRef: &recordTargetGroupRef,
+						TargetGroupRef: recordTargetGroupRef,
 					})
 				} else {
 					return nil, errors.New("misunderstanding with data, config_ref and targetgroup_ref fields")
