@@ -1,6 +1,7 @@
-## 1.0.3
+# 1.0.3
 
-FEATURES:
-Implemented base provider functionality
-Added support for dns-zone management (CRUD, import)
-Added support for traffic patterns management (CRUD, import)
+### Features
+
+- Implemented base provider functionality
+- Added support for dns-zone management (CRUD, import)
+- Added support for traffic patterns management (CRUD, import)
