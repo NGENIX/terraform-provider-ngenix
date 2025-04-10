@@ -154,13 +154,22 @@ func (d *dnsZoneDataSource) Read(ctx context.Context, req datasource.ReadRequest
 			Name: types.StringValue(dnszone.Name),
 		}
 		// DNS record set.
-		recordConfigRef := &configRefModel{}
-		recordTargetGroupRef := &targetGroupRefModel{}
 		for _, record := range dnszone.Records {
+			var recordConfigRef *configRefModel = nil
+			var recordTargetGroupRef *targetGroupRefModel = nil
 			if record.ConfigRef != nil && record.TargetGroupRef != nil {
+				resp.Diagnostics.AddError(
+					"Bad input data format",
+					"misunderstanding with data, config_ref and targetgroup_ref fields, you could use ONLY ONE field at a moment",
+				)
+				return
+			}
+			if record.ConfigRef != nil {
 				recordConfigRef = &configRefModel{
 					ID: types.Int64Value(record.ConfigRef.ID),
 				}
+			}
+			if record.TargetGroupRef != nil {
 				recordTargetGroupRef = &targetGroupRefModel{
 					ID: types.Int64Value(record.TargetGroupRef.ID),
 				}
